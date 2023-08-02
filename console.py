@@ -123,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
-            var = eval(args[0])()
+            var = HBNBCommand.classes[args]()
             print(var.id)
         for i in range(1, len(args)):
             try:
