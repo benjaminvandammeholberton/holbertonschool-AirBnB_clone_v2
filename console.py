@@ -120,8 +120,10 @@ class HBNBCommand(cmd.Cmd):
         args = line.split(' ')
         if line == "":
             print("** class name missing **")
+            return
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return
         else:
             var = HBNBCommand.classes[args[0]]()
             print(var.id)
