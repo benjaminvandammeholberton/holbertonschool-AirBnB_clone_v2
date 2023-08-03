@@ -44,10 +44,10 @@ class DBStorage:
         if cls is None:
             all_objects = []
             for k, v in classes.items:
-                all_objects.append(session.query(v).all())
+                all_objects.append(self.__session.query(v).all())
 
         else:
-            all_objects = session.query(cls).all()
+            all_objects = self.__session.query(cls).all()
 
         dico = {}
         for item in all_objects:
