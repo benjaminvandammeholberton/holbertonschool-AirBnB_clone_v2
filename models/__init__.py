@@ -3,9 +3,8 @@
 import os
 
 if os.environ.get('HBNB_TYPE_STORAGE') == 'db':
-    from models.engine.file_storage import DBStorage
+    from models.engine.db_storage import DBStorage
     storage = DBStorage()
-
 else:
     from models.engine.file_storage import FileStorage
     storage = FileStorage()
