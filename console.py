@@ -225,7 +225,7 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for key, obj in storage.all(HBNBCommand.classes[args]).items():
+            for key, obj in storage.all().items():
                 print_list.append(str(obj))
         else:
             for obj in storage.all().values():
