@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" """
 import pycodestyle
 import unittest
 from models.engine.db_storage import DBStorage

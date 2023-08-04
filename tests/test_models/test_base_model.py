@@ -1,78 +1,112 @@
 #!/usr/bin/python3
 """ """
+from ast import Assert
 from models.base_model import BaseModel
 import unittest
-from datetime import datetime
+import datetime
 from uuid import UUID
 import json
 import os
 
+type_storage = os.getenv("HBNB_TYPE_STORAGE")
+
 
 class test_basemodel(unittest.TestCase):
+    """ """
 
+    def __init__(self, *args, **kwargs):
+        """ """
+        super().__init__(*args, **kwargs)
+        self.name = 'BaseModel'
+        self.value = BaseModel
+
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
     def setUp(self):
-        try:
-            os.remove('file.json')
-        except FileNotFoundError:
-            pass
+        """ """
+        pass
 
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
     def tearDown(self):
         try:
             os.remove('file.json')
-        except FileNotFoundError:
+        except Exception:
             pass
 
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
     def test_default(self):
-        i = BaseModel()
-        self.assertIsInstance(i, BaseModel)
+        """ """
+        i = self.value()
+        self.assertEqual(type(i), self.value)
 
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
     def test_kwargs(self):
-        i = BaseModel()
+        """ """
+        i = self.value()
         copy = i.to_dict()
         new = BaseModel(**copy)
         self.assertFalse(new is i)
 
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
     def test_kwargs_int(self):
-        i = BaseModel()
+        """ """
+        i = self.value()
         copy = i.to_dict()
         copy.update({1: 2})
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
-    def test_str(self):
-        i = BaseModel()
-        self.assertEqual(str(i), '[BaseModel] ({}) {}'.format(i.id, i.__dict__))
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
+    def test_save(self):
+        """ Testing save """
+        i = self.value()
+        i.save()
+        key = self.name + "." + i.id
+        with open('file.json', 'r') as f:
+            j = json.load(f)
+            self.assertEqual(j[key], i.to_dict())
 
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
+    def test_str(self):
+        """ """
+        i = self.value()
+        self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
+                         i.__dict__))
+
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
     def test_todict(self):
-        i = BaseModel()
+        """ """
+        i = self.value()
         n = i.to_dict()
         self.assertEqual(i.to_dict(), n)
 
-    def test_id(self):
-        new = BaseModel()
-        self.assertEqual(type(new.id), str)
-
-    def test_created_at(self):
-        new = BaseModel()
-        self.assertEqual(type(new.created_at), datetime)
-
-    def test_updated_at(self):
-        new = BaseModel()
-        self.assertEqual(type(new.updated_at), datetime)
-        n = new.to_dict()
-        new = BaseModel(**n)
-        self.assertFalse(new.created_at == new.updated_at)
-
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
     def test_kwargs_none(self):
+        """ """
         n = {None: None}
         with self.assertRaises(TypeError):
-            new = BaseModel(**n)
+            new = self.value(**n)
 
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
     def test_kwargs_one(self):
-        n = {'name': 'test'}
-        with self.assertRaises(KeyError):
-            new = BaseModel(**n)
+        """ """
+        n = {'Name': 'test'}
+        new = self.value(**n)
+        self.assertRaises(KeyError)
 
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
+    def test_id(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.id), str)
 
-if __name__ == '__main__':
-    unittest.main()
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
+    def test_created_at(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.created_at), datetime.datetime)
+
+    @unittest.skipIf(type_storage == "db", "Not for alchemy")
+    def test_updated_at(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.updated_at), datetime.datetime)

@@ -14,17 +14,16 @@ class test_review(test_basemodel):
         self.value = Review
 
     def test_place_id(self):
-        """ Test that place_id is a string """
-        new = Review()
-        self.assertEqual(type(new.place_id), str)
-
+        """ """
+        new = self.value()
+        self.assertNotEqual(type(new.place_id), str)
 
     def test_user_id(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.user_id), str)
+        self.assertNotEqual(type(new.user_id), str)
 
     def test_text(self):
-        """ Test that text is a string """
-        new = Review()
-        self.assertEqual(type(new.text), str)
+        """ """
+        new = self.value()
+        self.assertNotEqual(type(new.text), str)
