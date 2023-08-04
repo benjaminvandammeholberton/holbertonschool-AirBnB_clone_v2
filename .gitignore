@@ -1,0 +1,21 @@
+# Fichiers générés par Codium (VS Code)
+.vscode/
+.vscode-remote/
+.history/
+
+# Fichiers de sauvegarde
+*~
+
+# Fichiers de configuration utilisateur
+settings.json
+locale.json
+
+# Autres fichiers générés
+*.log
+*.bak
+*.swp
+*.tmp
+*.pyc
+
+# Fichiers de dépendances (ajustez selon votre projet)
+/node_modules/
