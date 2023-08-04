@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 """ Module for testing file storage"""
 import unittest
+import os
 from models.base_model import BaseModel
 from models import storage
-import os
+
+type_storage = os.getenv("HBNB_TYPE_STORAGE")
 
 
+@unittest.skipIf(type_storage == "db", "Not for alchemy")
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
 
@@ -21,7 +24,7 @@ class test_fileStorage(unittest.TestCase):
         """ Remove storage file at end of tests """
         try:
             os.remove('file.json')
-        except:
+        except Exception:
             pass
 
     def test_obj_list_empty(self):
