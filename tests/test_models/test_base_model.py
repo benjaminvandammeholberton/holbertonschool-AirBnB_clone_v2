@@ -75,24 +75,7 @@ class test_basemodel(unittest.TestCase):
         n = {'Name': 'test'}
         with self.assertRaises(KeyError):
             new = BaseModel(**n)
-<<<<<<< HEAD
-
-    def test_created_at(self):
-        """ """
-        new = BaseModel()
-        self.assertEqual(type(new.created_at), datetime)
-
-    def test_updated_at(self):
-        """ """
-        new = BaseModel()
-        self.assertEqual(type(new.updated_at), datetime)
-        n = new.to_dict()
-        new = BaseModel(**n)
-        self.assertFalse(new.created_at == new.updated_at)
-
-=======
 
 
->>>>>>> c8f5ab655a080c1bfe631d877c30bd3b355be511
 if __name__ == '__main__':
     unittest.main()
