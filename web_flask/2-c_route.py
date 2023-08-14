@@ -49,7 +49,8 @@ def Cmessage(text):
     Returns:
         str: A message containing the captured value.
     """
-    return (f"C is {text}")
+    new_text = text.replace("_", " ")
+    return (f"C {new_text}")
 
 
 if __name__ == '__main__':
