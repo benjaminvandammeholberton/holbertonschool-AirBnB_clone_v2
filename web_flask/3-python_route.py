@@ -1,4 +1,4 @@
-#!/usr/bon/python3
+#!/usr/bin/python3
 """
 Module that starts a Flask web application
 """
