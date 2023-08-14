@@ -36,7 +36,7 @@ def message():
 
 
 @app.route("/c/<text>", strict_slashes=False)
-def Cmessage():
+def Cmessage(text):
     """
     Route handler for "/c/<text>" URL.
 
@@ -49,7 +49,7 @@ def Cmessage():
     Returns:
         str: A message containing the captured value.
     """
-    return f"C is {text}"
+    return (f"C is {text}")
 
 
 if __name__ == '__main__':
