@@ -1,20 +1,21 @@
 #!/usr/bin/python3
-"""A simple Flask application displaying 'states list' at the root."""
-
+""" Script that starts a Flask web application. """
+from flask import Flask, escape, render_template
 from models import storage
-from flask import Flask, render_template
 from models.state import State
-
 app = Flask(__name__)
 
 
-@app.route("/states_list", strict_slashes=False)
-def states_list():
-    return render_template("7-states_list.html", states=storage.all(State))
+@app.route('/states_list', strict_slashes=False)
+def states_list_route():
+    """ Returns a template that lists all State present in DBStorage. """
+    return render_template('7-states_list.html',
+                           list_s=storage.all(State).values())
 
 
 @app.teardown_appcontext
-def close(e):
+def tear_down(self):
+    """ Method that reloves the current SQLAlchemy Session. """
     storage.close()
 
 
