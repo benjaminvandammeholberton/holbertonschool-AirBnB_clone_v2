@@ -1,13 +1,17 @@
 #!/usr/bin/python3
-"""
-This script defines the Place class, representing a Place for a MySQL database.
-"""
+"""Defines the Place class."""
 import models
 from os import getenv
-from models.base_model import Base, BaseModel
+from models.base_model import Base
+from models.base_model import BaseModel
 from models.amenity import Amenity
 from models.review import Review
-from sqlalchemy import Column, Float, ForeignKey, Integer, String, Table
+from sqlalchemy import Column
+from sqlalchemy import Float
+from sqlalchemy import ForeignKey
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy import Table
 from sqlalchemy.orm import relationship
 
 
@@ -54,7 +58,7 @@ class Place(BaseModel, Base):
     longitude = Column(Float)
     reviews = relationship("Review", backref="place", cascade="delete")
     amenities = relationship("Amenity", secondary="place_amenity",
-                             viewonly=False, overlaps="place_amenities")
+                             viewonly=False)
     amenity_ids = []
 
     if getenv("HBNB_TYPE_STORAGE", None) != "db":
@@ -78,5 +82,5 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, value):
-            if type(value) is Amenity:
+            if type(value) == Amenity:
                 self.amenity_ids.append(value.id)
